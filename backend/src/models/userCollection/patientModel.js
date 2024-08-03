@@ -1,4 +1,5 @@
 const User = require('./userModel'); 
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const patientSchema = new Schema({
