@@ -65,4 +65,20 @@ const createDoctor = async (req, res) => {
     }
   };
 
-module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById}
+  const deleteDoctorById = async (req, res) => {
+    try {
+      const doctor = await Doctor.findByIdAndDelete(req.params.id);
+      if (!doctor) {
+        return res.status(404).json({ message: 'Doctor not found' });
+      }
+      res.status(200).json({ message: 'Doctor deleted successfully' });
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        res.status(400).json({ message: 'Invalid doctor ID' });
+      } else {
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  }
+
+module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById, deleteDoctorById}
