@@ -42,4 +42,27 @@ const createDoctor = async (req, res) => {
     }
   }
 
-module.exports={createDoctor, getAllDoctors, getDoctorById}
+  const modifyDoctorById =  async (req, res) => {
+    try {
+      const doctor = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+      });
+      if (!doctor) {
+        return res.status(404).json({ message: 'Doctor not found' });
+      }
+      res.status(200).json(doctor);
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        res.status(400).json({ message: error.message });
+      } else if (error.code === 11000) {
+        res.status(409).json({ message: 'License number already exists' });
+      } else if (error.kind === 'ObjectId') {
+        res.status(400).json({ message: 'Invalid doctor ID' });
+      } else {
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    }
+  };
+
+module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById}
