@@ -1,0 +1,21 @@
+# Utilisation de l'image de base officielle Node.js
+FROM node:20
+
+# Définition du répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copie des fichiers de package et installation des dépendances
+COPY package*.json ./
+RUN npm install
+
+# Copie du fichier .env
+COPY .env .env
+
+# Copie du reste de l'application
+COPY . .
+
+# Exposition du port sur lequel l'application va tourner
+EXPOSE 3001
+
+# Commande pour démarrer l'application
+CMD ["node", "index.js"]
