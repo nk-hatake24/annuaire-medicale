@@ -1,4 +1,5 @@
 const Doctor = require('../models/userCollection/doctorModel');
+const {main} = require('../config/scrapped')
 
 
 const createDoctor = async (req, res) => {
@@ -18,9 +19,11 @@ const createDoctor = async (req, res) => {
   }
 
   const getAllDoctors = async (req, res) => {
+
     try {
+      const scrappedDoctors = await main()
       const doctors = await Doctor.find();
-      res.status(200).json(doctors);
+      res.status(200).json(scrappedDoctors);
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }
