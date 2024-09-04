@@ -1,13 +1,55 @@
 'use client'
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolling, setScrolling] = useState(false)
+
+
+
+
+  useEffect(() => {
+    // Fonction de gestion du défilement
+    const handleScroll = () => {
+        // Vérifie si la page a été défilée au moins un peu
+         if (window.scrollY > 0) {
+            setScrolling(true); // Met à jour l'état pour indiquer que le défilement a commencé
+        } else {
+            setScrolling(false); // Met à jour l'état pour indiquer que le défilement a cessé
+        }
+
+
+
+    };
+
+    // Ajoute un écouteur d'événements de défilement à la fenêtre
+    window.addEventListener('scroll', handleScroll);
+
+    // Nettoyage : retirer l'écouteur d'événements lors du démontage du composant
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+}, []);
+
+
+
+
+  
+
+const navScrollingStyle ={
+    backgroundColor: scrolling? '#020617' : 'inherit',
+    color: scrolling?'rgb(248 250 252 / var(--tw-text-opacity))': ' background-color: rgb(2 6 23 / var(--tw-bg-opacity)) ',
+}
+    
+ 
+
+
 
   return (
-    <nav className="w-full fixed top-0 bg-slate-950 py-2 z-50 text-slate-50">
+    <nav style={navScrollingStyle} className="w-full fixed top-0 bg-slate-950 py-2 z-50 text-slate-50">
       <div className="max-w-6xl flex flex-row justify-between lg:mx-auto mx-4 items-center">
         <div className="logo">
           <h2 className="font-bold text-2xl">MedMeet</h2>
@@ -33,8 +75,8 @@ export default function NavBar() {
         </div>
 
         <div className="flex flex-row md:gap-5 gap-3 items-center mt-3 md:mt-0">
-            <Link href={'/signin'} className="bg-blue-600 text-sm p-2 font-semibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 hover:border-gray-50">sign in</Link>
-            <button className="text-slate-50 text-sm  p-2 border border-slate-50 font-semibold transition-colors duration-300 hover:bg-blue-600 rounded-sm hover:border-blue-600">sign up</button>
+            <Link href={'/signIn'} className="bg-blue-600 text-blue-50 text-sm p-2 font-semibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 hover:border-blue-50">sign in</Link>
+            <Link href={'/signUp'} className="text-blue-600 text-sm  p-2 border border-blue-600 font-semibold transition-colors duration-300 hover:bg-blue-600 rounded-sm hover:border-blue-600 hover:text-blue-50">sign up</Link>
           </div>
       </div>
     </nav>
