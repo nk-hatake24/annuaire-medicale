@@ -4,7 +4,7 @@ import homePortrait from "../../../public/images/homePotrait.png"
 export default function Home() {
   return (
     <section className="h-screen px-4 md:px-0 bg-slate-200">
-      <div className="max-w-6xl mx-auto flex flex-row h-full ">
+      <div className="max-w-6xl w-full  mx-auto flex flex-row h-full ">
         <div className="w-full md:w-1/2 mx-2 h-full gap-5 md:gap-10 flex flex-col justify-center">
           <h1 className="homeHeader text-4xl md:text-6xl font-bold tracking-tight text-center md:text-start">
             Find the Right Doctor or Hospital Near You,Anytime.

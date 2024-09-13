@@ -61,6 +61,17 @@ userSchema.pre("save", async function (next) {
     next();
   });
 
+  userSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate();
+    
+    // Si 'paid' est mis à jour à true, met à jour également 'paidAt'
+    if (update.paid === true) {
+      update.paidAt = Date.now();
+    }
+    next();
+  });
+  
+
 const UserModel = mongoose.model('User', userSchema);
 
 module.exports = UserModel;

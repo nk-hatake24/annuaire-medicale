@@ -1,8 +1,20 @@
 'use client'
+import { Url } from 'next/dist/shared/lib/router/router';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+interface customType{
+  to:any,
+  contain:String
+}
+function CustomNav({to, contain}:customType){
+  return(
+    <ul className="flex flex-col md:flex-row md:gap-5 gap-3 items-center">
+      <Link href={to} className='after:h-1 after:bg-slate-950 after:w-full after:contain-[""]'> {contain} </Link>
+    </ul>
+  )
+}
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,13 +76,14 @@ const navScrollingStyle ={
             isOpen ? 'block' : 'hidden'
           }`}
         >
-          <ul className="flex flex-col md:flex-row md:gap-5 gap-3 items-center">
-            <li>Home</li>
-            <li>Find a doctor</li>
-            <li>Find a hospital</li>
+          
+            <CustomNav to='/#home' contain='Home'/>
+            <CustomNav to='/healthAZ' contain='Health A to Z'/>
+            
+            {/* <li>Find a hospital</li>
             <li>Health A to Z</li>
-            <li>Announce</li>
-          </ul>
+            <li>Announce</li> */}
+          
           
         </div>
 
