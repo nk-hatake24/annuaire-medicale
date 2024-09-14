@@ -3,19 +3,19 @@ const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
-  firstName: {
+  username: {
     type: String,
     required: [true, 'First name is required'],
     trim: true
   },
-  lastName: {
-    type: String,
-    required: [true, 'Last name is required'],
-    trim: true
-  },
+  // lastName: {
+  //   type: String,
+  //   // required: [true, 'Last name is required'],
+  //   trim: true
+  // },
   email: {
     type: String,
-    required: [true, 'Email is required'],
+    // required: [true, 'Email is required'],
     unique: true,
     lowercase: true,
     trim: true,
@@ -28,12 +28,12 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
+    // required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters']
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Phone number is required'],
+    // required: [true, 'Phone number is required'],
     validate: {
       validator: function(v) {
         return /^\d{20}$/.test(v);  
@@ -43,11 +43,11 @@ const userSchema = new Schema({
   },
   address: {
     type: String,
-    required: [true, 'Address is required']
+    // required: [true, 'Address is required']
   },
   dateOfBirth: {
     type: Date,
-    required: [true, 'Date of birth is required']
+    // required: [true, 'Date of birth is required']
   }
 }, {
   discriminatorKey: 'role', 

@@ -1,6 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.after::after{
+
+  content: " ";
+  /* position: absolute; */
+  display: block ;
+  transform: scale(0);
+  height: 1px;
+  margin-top: 1px;
+  /* bottom: 1px;
+  left: 0; */
+  background-color: #303355;
+  /* transform-origin: bottom; */
+  transition-duration: 0.5s;
+  
+}
+
+.after:hover::after{
+  transform: scale(1);
+  /* transition: ease-in-out 1s; */
+
+
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

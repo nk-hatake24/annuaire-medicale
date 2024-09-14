@@ -11,7 +11,7 @@ interface customType{
 function CustomNav({to, contain}:customType){
   return(
     <ul className="flex flex-col md:flex-row md:gap-5 gap-3 items-center">
-      <Link href={to} className='after:h-1 after:bg-slate-950 after:w-full after:contain-[""]'> {contain} </Link>
+      <Link href={to} className='after transition-transform  '> {contain} </Link>
     </ul>
   )
 }
@@ -79,6 +79,7 @@ const navScrollingStyle ={
           
             <CustomNav to='/#home' contain='Home'/>
             <CustomNav to='/healthAZ' contain='Health A to Z'/>
+            <CustomNav to='/announcement' contain='Anouncement'/>
             
             {/* <li>Find a hospital</li>
             <li>Health A to Z</li>
@@ -88,8 +89,9 @@ const navScrollingStyle ={
         </div>
 
         <div className="flex flex-row md:gap-5 gap-3 items-center mt-3 md:mt-0">
-            <Link href={'/signIn'} className="bg-blue-600 text-blue-50 text-sm p-2 font-semibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 hover:border-blue-50">sign in</Link>
             <Link href={'/signUp'} className="text-blue-600 text-sm  p-2 border border-blue-600 font-semibold transition-colors duration-300 hover:bg-blue-600 rounded-sm hover:border-blue-600 hover:text-blue-50">sign up</Link>
+            <Link href={'/signIn'} className="bg-blue-600 text-blue-50 text-sm p-2 font-sem1ibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 hover:border-blue-50">sign in</Link>
+          
           </div>
       </div>
     </nav>

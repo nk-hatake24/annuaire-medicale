@@ -1,20 +1,20 @@
-import { Suspense } from 'react';
+
 
 interface Doctor {
   _id: string;
   name: string;
-  specialty: string;
+  speciality: string;
   contact: string;
   town: string;
 }
 
 export default async function HealthA_Z() {
-  const response = await fetch('http://localhost:3001/api/doctor');
+  const response = await fetch('https://annuaire-medicale.onrender.com/api/doctor',{next: { revalidate: 60 }});
   const doctors: Doctor[] = await response.json();
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-blue-500 p-8">
+    <div className="min-h-screen  bg-gray-100">
+      <div className="bg-blue-600 mt-10 p-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-6">
             Search for the Right Doctor or Hospital
@@ -44,10 +44,10 @@ export default async function HealthA_Z() {
       <div className="max-w-6xl mx-auto p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {doctors.map((doctor) => (
-            <div key={doctor._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={doctor._id} className="bg-white hover:shadow-lg rounded-lg shadow-md overflow-hidden">
               <div className="bg-blue-600 text-white p-4">
-                <h3 className="text-xl font-semibold">{doctor.name}</h3>
-                <p className="text-sm opacity-75">{doctor.specialty}</p>
+                <h3 className="text-xl font-semibold uppercase">{doctor.username}</h3>
+                <p className="text-sm opacity-75">{doctor.speciality}</p>
               </div>
               <div className="p-4 space-y-2">
                 <p className="flex items-center">

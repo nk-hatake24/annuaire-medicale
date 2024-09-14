@@ -14,12 +14,12 @@ async function fetchData(page) {
         const doctors = [];
 
         $('.bloc-nom').each((index, element) => {
-            const name = $(element).text().trim();
+            const username = $(element).text().trim();
             const licenseNumber = $(element).siblings('.bloc-numero').text().trim();
-            const specialty = $(element).siblings('.bloc-specialite').text().trim();
+            const speciality = $(element).siblings('.bloc-specialite').text().trim();
 
-            if (name && licenseNumber && specialty) {
-                doctors.push({ name, licenseNumber, specialty });
+            if (username && licenseNumber && speciality) {
+                doctors.push({ username, licenseNumber, speciality });
             }
         });
 

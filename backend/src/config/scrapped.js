@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
-const uri = "mongodb+srv://nkMichel:Viande2@cluster0.2h7ebpu.mongodb.net"; // Remplace par ton URI MongoDB
-const client = new MongoClient(uri);
+const url = "mongodb+srv://nkMichel:Viande2@cluster0.2h7ebpu.mongodb.net"; // Remplace par ton URI MongoDB
+const client = new MongoClient(url);
 
  async function main() {
   try {

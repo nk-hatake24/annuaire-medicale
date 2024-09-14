@@ -17,6 +17,7 @@ app
 .use(morgan("dev"))
 
 
+
 dbConnection()
 
 const doctorRoute = require('./src/Route/doctorRoute')
@@ -24,6 +25,11 @@ const patientRoute = require('./src/Route/patient.route')
 
 app.use('/api/doctor', doctorRoute)
 app.use('/api/patient', patientRoute)
+
+
+
+
+ 
 
 
 app.listen(port , ()=> console.log(`the server is running on port ${port}`))
