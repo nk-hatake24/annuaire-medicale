@@ -55,7 +55,7 @@ export default function SignUp() {
       }
 
       const result = await response.json()
-      console.log('Post mis à jour:', result)
+      // console.log('Post mis à jour:', result)
 
       // Réinitialiser le formulaire
       setDoctorData({  name: " ",
@@ -72,7 +72,7 @@ export default function SignUp() {
       // Ou rediriger vers une autre page
       // router.push('/posts')
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du post:', error)
+      // console.error('Erreur lors de la mise à jour du post:', error)
       // Ici, vous pourriez ajouter une logique pour afficher l'erreur à l'utilisateur
     } finally {
       setIsLoading(false)
