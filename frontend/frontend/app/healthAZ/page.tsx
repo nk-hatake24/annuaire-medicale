@@ -9,7 +9,7 @@ interface Doctor {
 }
 
 export default async function HealthA_Z() {
-  const response = await fetch('https://annuaire-medicale.onrender.com/api/doctor',{next: { revalidate: 60 }});
+  const response = await fetch('https://annuaire-medicale.onrender.com/api/doctor');
   const doctors: Doctor[] = await response.json();
 
   return (
