@@ -11,7 +11,7 @@ export default function Home() {
           </h1>
           <p className="homeHeader text-lg text-center md:text-start">
             Easily search for trusted healthcare professionals and facilities,
-            tailored to your needs, with MedMeet's simple and fast platform.
+            tailored to your needs, with MedMeet&apos;s simple and fast platform.
           </p>
           <div className="homeButton flex md:flex-row flex-col md:gap-10 gap-5">
             <button className="bg-blue-600 font-semibold p-2 rounded-sm text-gray-50 hover:bg-transparent border border-blue-600 hover:text-blue-600 transition-colors duration-200">
