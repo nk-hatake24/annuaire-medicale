@@ -22,7 +22,7 @@ const createDoctor = async (req, res) => {
 
     try {
       // const scrappedDoctors = await main()
-      const doctors = await Doctor.find();
+      const doctors = await Doctor.find().limit(10);
       res.status(200).json(doctors);
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
