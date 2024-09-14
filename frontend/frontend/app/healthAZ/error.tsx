@@ -22,7 +22,7 @@ export default function Error({
           <AlertCircle className="mx-auto h-16 w-16 text-red-500" aria-hidden="true" />
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Oops! Something went wrong</h2>
           <p className="mt-2 text-sm text-gray-600">
-            {"We couldn't fetch the data you were looking for. Don't worry, it's not your fault!"}
+            {/* {"We couldn't fetch the data you were looking for. Don't worry, it's not your fault!"} */}
           </p>
         </div>
         <div className="mt-8 space-y-6">

@@ -2,7 +2,7 @@
 
 interface Doctor {
   _id: string;
-  name: string;
+  username: string;
   speciality: string;
   contact: string;
   town: string;
