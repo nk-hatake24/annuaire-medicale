@@ -19,15 +19,37 @@ const createDoctor = async (req, res) => {
   }
 
   const getAllDoctors = async (req, res) => {
-
     try {
-      // const scrappedDoctors = await main()
-      const doctors = await Doctor.find().limit(10);
-      res.status(200).json(doctors);
+      const limit = parseInt(req.query.limit) || 10; // Default limit to 10
+      const cursor = req.query.cursor || null; // Get cursor from query
+  
+      let query = {};
+  
+      // If a cursor is provided, filter documents with _id greater than the cursor
+      if (cursor) {
+        query = { _id: { $gt: cursor } }; // Use the cursor to get documents after the given _id
+      }
+  
+      // Fetch doctors from the database, sorted by _id in ascending order
+      const doctors = await Doctor.find(query)
+        .sort({ _id: 1 }) // Sort by _id to ensure correct order
+        .limit(limit); // Limit the number of results
+  
+      // If there are no doctors returned, return an empty array and null for the next cursor
+      if (doctors.length === 0) {
+        return res.json({ doctors: [], nextCursor: null });
+      }
+  
+      // The next cursor is the _id of the last doctor in the returned array
+      const nextCursor = doctors[doctors.length - 1]._id;
+  
+      // Respond with the fetched doctors and the next cursor
+      res.status(200).json({ doctors, nextCursor });
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
+  
 
   const getDoctorById = async (req, res) => {
     try {
