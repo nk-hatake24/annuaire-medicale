@@ -17,6 +17,25 @@ const createDoctor = async (req, res) => {
       }
     }
   }
+ 
+  const getSearchedDoctor = async (req,res) =>{
+    const { username, speciality, hospital, town } = req.query;
+
+    const query = {};
+  
+    if (username) query.username = new RegExp(username, 'i');  // 'i' for case insensitive search
+    if (speciality) query.speciality = new RegExp(speciality, 'i');
+    if (hospital) query.hospital = new RegExp(hospital, 'i');
+    if (town) query.town = new RegExp(town, 'i');
+  
+    try {
+      const doctors = await Doctor.find(query);
+      res.json(doctors);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+  
 
   const getAllDoctors = async (req, res) => {
     try {
@@ -137,4 +156,4 @@ const createDoctor = async (req, res) => {
     }
   }
 
-module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById, deleteDoctorById, signupDoctor}
+module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById,getSearchedDoctor, deleteDoctorById, signupDoctor}
