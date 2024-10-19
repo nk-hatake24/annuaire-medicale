@@ -80,6 +80,8 @@ const navScrollingStyle ={
             <CustomNav to='/#home' contain='Home'/>
             <CustomNav to='/healthAZ' contain='Health A to Z'/>
             <CustomNav to='/announcement' contain='Anouncement'/>
+            <CustomNav to='/searchMed' contain='SearchMed'/>
+            <CustomNav to='/dashboard' contain='Dashboard'/>
             
             {/* <li>Find a hospital</li>
             <li>Health A to Z</li>

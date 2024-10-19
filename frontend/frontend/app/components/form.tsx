@@ -2,7 +2,8 @@
 
 import React, { useRef, FormEvent, useState } from "react";
 import emailjs from "@emailjs/browser";
-import SucessMessage from "./sucess";
+import SucessMessage from "./popUpMessage";
+import PopUpMessage from "./popUpMessage";
 
 export default function Form() {
   // Typage du ref de formulaire
@@ -19,7 +20,7 @@ export default function Form() {
     if (form.current) {
       emailjs
         .sendForm(
-          "service_2za17eq",
+          'service_2za17eq',
           "template_effscvx",
           form.current,
           "DWvUQQhK3daJW8_qZ"
@@ -80,7 +81,7 @@ export default function Form() {
         value={"Send"}
         className="p-2 text-gray-50 bg-blue-600 hover:bg-transparent border border-blue-600 hover:text-blue-50 hover:border-blue-50 font-semibold rounded-sm"
       />
-      <SucessMessage open={isOpen} />
+      <PopUpMessage color={'success'} open={isOpen} message={'sucessful'}/>
     </form>
   );
 }

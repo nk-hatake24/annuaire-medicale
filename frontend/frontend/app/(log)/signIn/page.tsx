@@ -28,13 +28,13 @@ export default function Signin() {
 </div>
 <div className="w-1/2 p-8">
   <form action="" className="flex flex-col gap-5 text-sm text-slate-50">
-    <input
+    {/* <input
       placeholder="Your Email"
       type="email"
       className="p-1 outline-none placeholder:text-slate-50 bg-transparent border-b-[1px] border-opacity-2 gap-4"
-    />
+    /> */}
     <input
-    placeholder="Your Medical ID"
+    placeholder="Your license ID     0000/0000"
       type="text"
       className="p-1 outline-none placeholder:text-slate-50 bg-transparent border-b-[1px] border-opacity-2 gap-4"
     />

@@ -18,6 +18,8 @@ interface DoctorDataType {
 export default function SignUp() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<Boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [doctorData, setDoctorData] = useState<DoctorDataType>({
     name: "",
@@ -33,7 +35,19 @@ export default function SignUp() {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+
+    
     const { name, value } = e.target;
+
+    const regex = /^[a-zA-Z0-9 ]*$/;
+
+    // Vérification des caractères spéciaux
+    if (!regex.test(value)) {
+      setError(true);
+      setErrorMessage("Les caractères spéciaux ne sont pas autorisés");
+      return; // Ne pas mettre à jour l'état si des caractères spéciaux sont trouvés
+    }
+
     setDoctorData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -130,7 +144,7 @@ export default function SignUp() {
           name="licenseNumber"
           required
           onChange={handleInputChange}
-            placeholder="Your license ID"
+            placeholder="Your license ID   0000/0000"
             type="text"
             className="p-1 outline-none placeholder:text-slate-50 bg-transparent border-b-[1px] border-opacity-2 gap-4"
           />
