@@ -4,7 +4,7 @@ export default function Signin() {
   return (
 
 <div className="w-full flex ">
-<div className="w-1/2 bg-slate-950 p-3 flex flex-col justify-center items-center gap-8 text-slate-50">
+<div className="md:w-1/2 hidden  bg-slate-950 p-3 md:flex flex-col justify-center items-center gap-8 text-slate-50">
   <h2 className="font-bold flex  text-2xl">Sign up</h2>
   <Link href={"/signUp"} className="flex text-xl items-center gap-3">
   <span className="relative group rotate-180">
@@ -26,7 +26,9 @@ export default function Signin() {
     
   </Link>
 </div>
-<div className="w-1/2 p-8">
+<div className="w-full md:w-1/2 p-8">
+<h2 className="text-4xl block md:hidden text-slate-50 text-center mb-4">sign in</h2>
+
   <form action="" className="flex flex-col gap-5 text-sm text-slate-50">
     {/* <input
       placeholder="Your Email"
