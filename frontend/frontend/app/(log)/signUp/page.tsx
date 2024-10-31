@@ -95,8 +95,9 @@ export default function SignUp() {
 
   return (
     <div className="flex w-full flex-row ">
-      <div className="w-1/2 p-8">
-        <form onSubmit={updatePost} className="flex flex-col gap-5 text-sm text-slate-50 ">
+      <div className="w-full  lg:w-1/2 p-8">
+      <h2 className="text-4xl block md:hidden text-slate-50 text-center mb-4">sign up</h2>
+        <form onSubmit={updatePost} className="flex flex-col gap-5 w-full text-sm text-slate-50 ">
           <input
             placeholder="Your Name"
             type="text"
@@ -171,7 +172,7 @@ export default function SignUp() {
           
         </form>
       </div>
-      <div className="w-1/2 bg-slate-950 p-3 flex flex-col justify-center items-center gap-8 text-slate-50">
+      <div className="w-0 md:w-1/2 hidden bg-slate-950 p-3 lg:flex flex-col justify-center items-center gap-8 text-slate-50">
         <h2 className="font-bold flex  text-2xl">Sign in</h2>
         <Link href="/signIn" className="flex text-xl items-center gap-3">
           log in{" "}
