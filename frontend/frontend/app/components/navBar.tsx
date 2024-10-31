@@ -49,11 +49,10 @@ export default function NavBar() {
 
 
 
-  
 
 const navScrollingStyle ={
-    backgroundColor: scrolling? '#020617' : 'inherit',
-    color: scrolling?'rgb(248 250 252 / var(--tw-text-opacity))': ' background-color: rgb(2 6 23 / var(--tw-bg-opacity)) ',
+    backgroundColor:   scrolling? '#020617' : 'inherit',
+    color:  scrolling?'rgb(248 250 252 / var(--tw-text-opacity))': ' background-color: rgb(2 6 23 / var(--tw-bg-opacity)) ',
 }
     
  
@@ -61,7 +60,7 @@ const navScrollingStyle ={
 
 
   return (
-    <nav style={navScrollingStyle} className="w-full fixed top-0 bg-slate-950 py-2 z-50 text-slate-50">
+    <nav style={navScrollingStyle} className="w-full fixed top-0 bg-blue-950 py-2 z-50 text-slate-50">
       <div className="max-w-6xl flex flex-row justify-between lg:mx-auto mx-4 items-center">
         <div className="logo">
           <h2 className="font-bold text-2xl">MedMeet</h2>
@@ -72,9 +71,9 @@ const navScrollingStyle ={
           </button>
         </div>
         <div
-          className={`navList text-sm py-2 md:flex flex-col md:flex-row text-md gap-5 absolute md:static top-16 left-0 right-0 bg-slate-950 md:bg-transparent transition-all duration-300 ease-in ${
+          className={`navList text-sm py-2 md:flex flex-col md:flex-row text-md gap-5 absolute md:static top-16 left-0 right-0  md:bg-transparent transition-all duration-300 ease-in ${
             isOpen ? 'block' : 'hidden'
-          }`}
+          } ${scrolling?'bg-slate-950': 'bg-slate-50' }`}
         >
           
             <CustomNav to='/#home' contain='Home'/>
@@ -92,7 +91,7 @@ const navScrollingStyle ={
 
         <div className="flex flex-row md:gap-5 gap-3 items-center mt-3 md:mt-0">
             <Link href={'/signUp'} className="text-blue-600 text-sm  p-2 border border-blue-600 font-semibold transition-colors duration-300 hover:bg-blue-600 rounded-sm hover:border-blue-600 hover:text-blue-50">sign up</Link>
-            <Link href={'/signIn'} className="bg-blue-600 text-blue-50 text-sm p-2 font-sem1ibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 hover:border-blue-50">sign in</Link>
+            <Link href={'/signIn'} className={  `bg-blue-600  text-sm p-2 font-sem1ibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 text-blue-50 ${scrolling?'hover:border-blue-50  hover:text-blue-50': 'hover:border-blue-600 hover:text-blue-600 '}`}>sign in</Link>
           
           </div>
       </div>
