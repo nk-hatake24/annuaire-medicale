@@ -98,6 +98,8 @@ export default function SearchMed() {
             className="placeholder:text-gray-400 flex flex-col w-full gap-2"
           >
             <input
+            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+          title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               name="username"
               value={searchmed.username}
@@ -106,6 +108,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
+            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+          title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.speciality}
               name="speciality"
@@ -114,6 +118,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
+            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+          title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.town}
               name="town"
@@ -122,6 +128,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
+            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+          title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.hospital}
               name="hospital"
@@ -130,6 +138,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
+            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+          title="Les caractères spéciaux ne sont pas autorisés."
               type="submit"
               className="p-1 outline-blue-300 rounded border mt-2 border-blue-50 text-blue-50 hover:bg-blue-800 "
             />
