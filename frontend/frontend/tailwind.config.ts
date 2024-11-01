@@ -9,6 +9,15 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		keyframes: {
+			zoom: {
+			  '0%, 100%': { transform: 'scale(1)' },
+			  '50%': { transform: 'scale(0.2)' },
+			},
+		  },
+		  animation: {
+			zoom: 'zoom 1s ease-in-out infinite',
+		  },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
