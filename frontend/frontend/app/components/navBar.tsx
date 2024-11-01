@@ -91,7 +91,7 @@ const navScrollingStyle ={
 
         <div className="flex flex-row md:gap-5 gap-3 items-center mt-3 md:mt-0">
             <Link href={'/signUp'} className="text-blue-600 text-sm  p-2 border border-blue-600 font-semibold transition-colors duration-300 hover:bg-blue-600 rounded-sm hover:border-blue-600 hover:text-blue-50">sign up</Link>
-            <Link href={'/signIn'} className={  `bg-blue-600  text-sm p-2 font-sem1ibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 text-blue-50 ${scrolling?'hover:border-blue-50  hover:text-blue-50': 'hover:border-blue-600 hover:text-blue-600 '}`}>sign in</Link>
+            <Link href={'/signIn'} className={  `bg-blue-600  text-sm p-2 font-semibold rounded-sm hover:bg-transparent transition-colors duration-300 border border-blue-600 text-blue-50 ${scrolling?'hover:border-blue-50  hover:text-blue-50': 'hover:border-blue-600 hover:text-blue-600 '}`}>sign in</Link>
           
           </div>
       </div>
