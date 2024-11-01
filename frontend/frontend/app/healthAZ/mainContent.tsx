@@ -7,7 +7,7 @@ export default async function MainContent() {
   async function fetchDoctors(cursor: string | null = null) {
     const url = cursor ? `/api/doctor?cursor=${cursor}` : `/api/doctor`;
     try {
-      const response = await fetch('http://localhost:3001' + url, {
+      const response = await fetch('https://annuaire-medicale.onrender.com' + url, {
         next: {
           revalidate: 10, // Revalidate every 10 seconds
         },});

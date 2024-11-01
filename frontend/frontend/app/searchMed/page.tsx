@@ -46,7 +46,7 @@ export default function SearchMed() {
 
       console.log(url);
 
-      const response = await fetch("http://localhost:3001" + url, {
+      const response = await fetch("https://annuaire-medicale.onrender.com" + url, {
         next: {
           revalidate: 10,
         },
