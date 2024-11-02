@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import homePortrait from "../../../public/images/homePotrait.png";
+import homePortrait from "../../../public/images/homePotrait.webp";
 import Link from "next/link";
 
 export default function Home() {

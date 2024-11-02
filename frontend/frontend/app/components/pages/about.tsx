@@ -6,7 +6,7 @@ export default function About() {
     <section className="md:h-screen bg-slate-950 flex flex-col lg:flex-row">
       <div
         className="lg:w-1/2 w-full hidden lg:block md:h-full h-screen bg-center bg-cover"
-        style={{ backgroundImage: "url('/images/chirugien.jpg')" }}
+        style={{ backgroundImage: "url('/images/chirugien.webp')" }}
       ></div>
       <div className="lg:w-1/2 py-4 w-full h-full flex flex-col justify-center items-center  text-slate-50 gap-10">
         <div className="border border-slate-50 p-4 w-96">

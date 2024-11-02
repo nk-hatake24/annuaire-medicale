@@ -9,7 +9,7 @@ export default function Layout({
     <div className="h-screen w-screen relative ">
       <div
         className="h-full w-full   bg-cover brightness-50 bg-top contrast-100 absolute inset-0"
-        style={{ backgroundImage: "url('/images/siginBG.jpeg')" }}
+        style={{ backgroundImage: "url('/images/siginBG.webp')" }}
       >
       </div>
       <div className=" h-full w-full flex items-center ">

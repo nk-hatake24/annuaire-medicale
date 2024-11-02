@@ -21,7 +21,7 @@ export default function AnnouncementHome() {
       </div>
       <div
         className="lg:w-1/2 w-full h-full hidden lg:block bg-center bg-cover"
-        style={{ backgroundImage: "url('/images/opt announcement.jpg')" }}
+        style={{ backgroundImage: "url('/images/opt announcement.webp')" }}
       ></div>
     </section>
   );
