@@ -149,15 +149,7 @@ export default function SignUp() {
             type="text"
             className="p-1 outline-none placeholder:text-slate-50 bg-transparent border-b-[1px] border-opacity-2 gap-4"
           />
-          <input
-          value={doctorData.town}
-          name="town"
-          required
-          onChange={handleInputChange}
-            placeholder="Your license ID"
-            type="text"
-            className="p-1 outline-none placeholder:text-slate-50 bg-transparent border-b-[1px] border-opacity-2 gap-4"
-          />
+         
           <input
           value={doctorData.password}
           name="password"
