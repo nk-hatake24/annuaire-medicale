@@ -46,11 +46,14 @@ export default function SearchMed() {
 
       console.log(url);
 
-      const response = await fetch("https://annuaire-medicale.onrender.com" + url, {
-        next: {
-          revalidate: 10,
-        },
-      });
+      const response = await fetch(
+        "https://annuaire-medicale.onrender.com" + url,
+        {
+          next: {
+            revalidate: 10,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -61,10 +64,10 @@ export default function SearchMed() {
       const data = await response.json(); // Convertir la réponse en JSON
       setDoctor(data); // Mettre à jour l'état avec les données du médecin
       setLoading(false); // Désactiver l'état de chargement
-      if(doctor.length===0){
-      setError(true)
-       setErrorMessage('no doctor found')}
-    
+      if (doctor.length === 0) {
+        setError(true);
+        setErrorMessage("no doctor found");
+      }
     } catch (err) {
       setLoading(false); // Désactiver l'état de chargement en cas d'erreur
       const errorMessage =
@@ -98,8 +101,8 @@ export default function SearchMed() {
             className="placeholder:text-gray-400 flex flex-col w-full gap-2"
           >
             <input
-            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
-          title="Les caractères spéciaux ne sont pas autorisés."
+              pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+              title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               name="username"
               value={searchmed.username}
@@ -108,8 +111,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
-            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
-          title="Les caractères spéciaux ne sont pas autorisés."
+              pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+              title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.speciality}
               name="speciality"
@@ -118,8 +121,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
-            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
-          title="Les caractères spéciaux ne sont pas autorisés."
+              pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+              title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.town}
               name="town"
@@ -128,8 +131,8 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
-            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
-          title="Les caractères spéciaux ne sont pas autorisés."
+              pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
+              title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
               value={searchmed.hospital}
               name="hospital"
@@ -138,16 +141,18 @@ export default function SearchMed() {
               className="p-2 outline-blue-300 rounded "
             />
             <input
-            pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
-          title="Les caractères spéciaux ne sont pas autorisés."
+              value={'search'}
               type="submit"
               className="p-1 outline-blue-300 rounded border mt-2 border-blue-50 text-blue-50 hover:bg-blue-800 "
             />
           </form>
         </div>
 
-        <div className={` sm:w-1/2 py-2 sm:py-0 gap-2  overflow-y-scroll ${doctor.length === 0 ? 'hidden': 'flex flex-col'}`}>
-        
+        <div
+          className={` sm:w-1/2 py-2 sm:py-0 gap-2  overflow-y-scroll ${
+            doctor.length === 0 ? "hidden" : "flex flex-col"
+          }`}
+        >
           {loading && <Spinner />}
           {doctor.map((doc) => (
             <div key={doc._id} className="gap-4">
@@ -158,17 +163,21 @@ export default function SearchMed() {
 
                 <h2 className="sm:text-lg test-sm  text-blue-300 text-center font-semibold uppercase">
                   {doc.speciality}
-                </h2><h2 className="sm:text-xl flex gap-4  items-center test-md text-start font-semibold pl-5 mt-10 uppercase">
-                  <FaPhone size={18}/>{doc.phoneNumber}
+                </h2>
+                <h2 className="sm:text-xl flex gap-4  items-center test-md text-start font-semibold pl-5 mt-10 uppercase">
+                  <FaPhone size={18} />
+                  {doc.phoneNumber}
                 </h2>
                 <h2 className="sm:text-xl flex gap-4 items-center test-md text-start font-semibold pl-5 ">
-                  <FaEnvelope size ={18}/>{doc.email}
+                  <FaEnvelope size={18} />
+                  {doc.email}
                 </h2>
                 <h2 className="sm:text-xl flex gap-4 items-centertest-md text-start font-semibold pl-5 uppercase">
-                <FaHospital size ={20}/>{doc.healthCenter}
+                  <FaHospital size={20} />
+                  {doc.healthCenter}
                 </h2>
                 <h2 className="sm:text-xl flex gap-4 items-center test-md text-start font-semibold pl-5 uppercase">
-                <FaLocationCrosshairs size ={18}/> {doc.town}
+                  <FaLocationCrosshairs size={18} /> {doc.town}
                 </h2>
                 {/* Affichez d'autres informations ici si nécessaire */}
               </div>
