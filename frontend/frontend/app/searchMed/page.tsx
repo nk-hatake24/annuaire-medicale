@@ -11,6 +11,7 @@ export default function SearchMed() {
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<Boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [nothing, setNothing] = useState<Boolean>(false);
   const [searchmed, setSearchingmed] = useState({
     username: "",
     speciality: "",
@@ -67,7 +68,9 @@ export default function SearchMed() {
       if (doctor.length === 0) {
         setError(true);
         setErrorMessage("no doctor found");
-      }
+        setNothing(true)
+      }else{
+      setNothing(false)}
     } catch (err) {
       setLoading(false); // Désactiver l'état de chargement en cas d'erreur
       const errorMessage =
@@ -150,10 +153,13 @@ export default function SearchMed() {
 
         <div
           className={` sm:w-1/2 py-2 sm:py-0 gap-2  overflow-y-scroll ${
-            doctor.length === 0 ? "hidden" : "flex flex-col"
+            doctor.length === 0 && !nothing && !loading? "hidden" : "flex flex-col"
           }`}
         >
           {loading && <Spinner />}
+          {nothing && doctor.length === 0 && (
+  <p className="text-center  text-red-500 font-semibold text-2xl">{errorMessage}</p>
+)}
           {doctor.map((doc) => (
             <div key={doc._id} className="gap-4">
               <div className="bg-blue-800 sm:h-96 flex flex-col text-blue-50  justify-center p-4">
