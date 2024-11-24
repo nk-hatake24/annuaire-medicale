@@ -12,7 +12,9 @@ const config: Config = {
 		keyframes: {
 			zoom: {
 			  '0%, 100%': { transform: 'scale(1)' },
-			  '50%': { transform: 'scale(0.2)' },
+			  '40%': { transform: 'scale(0.8)' },
+			  '50%': { transform: 'scale(0.9)' },
+			  '60%': { transform: 'scale(0.8)' },
 			},
 		  },
 		  animation: {

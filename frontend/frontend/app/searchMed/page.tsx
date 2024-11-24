@@ -45,7 +45,7 @@ export default function SearchMed() {
       if (searchmed.town) params.append("town", searchmed.town);
       const url = `/api/doctor/searched?${params.toString()}`;
 
-      console.log(url);
+    
 
       const response = await fetch(
         "https://annuaire-medicale.onrender.com" + url,

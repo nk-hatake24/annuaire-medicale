@@ -1,4 +1,4 @@
-import Image from "next/image";
+'use client'
 import Home from "./components/pages/home";
 import About from "./components/pages/about";
 import AnnouncementHome from "./components/pages/annoncementHome";

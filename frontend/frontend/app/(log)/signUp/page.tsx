@@ -39,7 +39,7 @@ export default function SignUp() {
     
     const { name, value } = e.target;
 
-    const regex = /^[a-zA-Z0-9 ]*$/;
+    const regex = /^[a-zA-Z0-9 / ]*$/;
 
     // Vérification des caractères spéciaux
     if (!regex.test(value)) {
