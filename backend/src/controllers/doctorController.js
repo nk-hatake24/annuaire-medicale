@@ -70,6 +70,26 @@ const createDoctor = async (req, res) => {
   };
   
 
+
+  const getAllDoctorWithOutCursorBase = async (req, res) => {
+    try {
+      // Rechercher uniquement le champ `username`
+      const allDoctors = await Doctor.find().select('username');
+  
+      res.status(200).json({
+         allDoctors,
+      });
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      res.status(500).json({
+        message: 'Internal server error',
+      });
+    }
+  };
+  
+  
+  
+
   const getDoctorById = async (req, res) => {
     try {
       const doctor = await Doctor.findById(req.params.id);
@@ -156,4 +176,4 @@ const createDoctor = async (req, res) => {
     }
   }
 
-module.exports={createDoctor, getAllDoctors, getDoctorById, modifyDoctorById,getSearchedDoctor, deleteDoctorById, signupDoctor}
+module.exports={createDoctor, getAllDoctors, getDoctorById, getAllDoctorWithOutCursorBase,  modifyDoctorById,getSearchedDoctor, deleteDoctorById, signupDoctor}
