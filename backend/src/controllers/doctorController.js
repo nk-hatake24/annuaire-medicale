@@ -72,18 +72,21 @@ const createDoctor = async (req, res) => {
 
 
   const getAllDoctorWithOutCursorBase = async (req, res) => {
+    const { search, page = 1, limit = 10 } = req.query;
     try {
-      // Rechercher uniquement le champ `username`
-      const allDoctors = await Doctor.find().select('username');
-  
-      res.status(200).json({
-         allDoctors,
-      });
+        const skip = (page - 1) * limit;
+
+        const allDoctors = await Doctor.find({
+            username: { $regex: `^${search}`, $options: 'i' },
+        })
+            .select('username')
+            .skip(skip)
+            .limit(Number(limit));
+
+        res.status(200).json({ allDoctors });
     } catch (error) {
-      console.error('Error fetching doctors:', error);
-      res.status(500).json({
-        message: 'Internal server error',
-      });
+        console.error('Error fetching doctors:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
   };
   
