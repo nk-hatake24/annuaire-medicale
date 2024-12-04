@@ -18,23 +18,34 @@ const createDoctor = async (req, res) => {
     }
   }
  
-  const getSearchedDoctor = async (req,res) =>{
-    const { username, speciality, hospital, town } = req.query;
-
+  const getSearchedDoctor = async (req, res) => {
+    const { username, speciality, hospital, town, page = 1, limit = 10 } = req.query;
+  
     const query = {};
-  
-    if (username) query.username = new RegExp(username, 'i');  // 'i' for case insensitive search
-    if (speciality) query.speciality = new RegExp(speciality, 'i');
-    if (hospital) query.hospital = new RegExp(hospital, 'i');
-    if (town) query.town = new RegExp(town, 'i');
-  
+    // { $regex: `^${search}`, $options: 'i' }
+    if (username) query.username={ $regex: `^${username}`, $options: 'i' }; // 'i' for case-insensitive search
+    if (speciality) query.speciality = { $regex: `^${speciality}`, $options: 'i' };
+    if (hospital) query.hospital = { $regex: `^${hopital}`, $options: 'i' }
+    if (town) query.town = { $regex: `^${town}`, $options: 'i' };
+    
     try {
-      const doctors = await Doctor.find(query);
-      res.json(doctors);
+      const doctors = await Doctor.find(query)
+        .limit(parseInt(limit)) // Limit the number of results per page
+        .skip((parseInt(page) - 1) * parseInt(limit)); // Skip the results for previous pages
+  
+      const total = await Doctor.countDocuments(query); // Get total count of matching documents
+      
+      res.json({
+        doctors,
+        total,
+        page: parseInt(page),
+        totalPages: Math.ceil(total / parseInt(limit)), // Calculate total pages
+      });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   };
+  
   
 
   const getAllDoctors = async (req, res) => {
