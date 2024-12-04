@@ -18,7 +18,7 @@ export default function Home() {
   
   const itemVariants = {
     hidden: { opacity: 0, y: -100 },
-    visible: { opacity: [0, 0.5, 1], y: [-80, -40, 0] },
+    visible: { opacity: [0, 0.5, ,0.9, 1], y: [-80, -40, 10, 0] },
   };
 
   return (
@@ -55,13 +55,13 @@ export default function Home() {
           <m.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             className="w-[10em] h-[10em] md:h-[30em] md:w-[30em] bg-blue-600 rounded-full "
           ></m.div>
           
           <m.div 
-          initial={{opacity: 0.6}}
-          animate={{opacity:1}}
+          initial={{opacity: 0, x: 100}}
+          animate={{opacity:1,  x:0}}
           transition={{duration: 0.5}}
           className="absolute bottom-0 z-10">
 

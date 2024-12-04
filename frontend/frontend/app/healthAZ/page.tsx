@@ -9,7 +9,7 @@ export default async function HealthA_Z() {
   
 
   return (
-    <div className="min-h-screen  bg-gray-100">
+    <div className="min-h-screen  bg-slate-200">
       <div className="bg-blue-600 mt-10 p-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-6">

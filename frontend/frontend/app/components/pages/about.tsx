@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 export default function About() {
   const itemVariants = {
     hidden: { opacity: 0, x: 100 },
-    visible: { opacity: [0,0.2, 0.4, 0.8, 1], x: [80, 60, 40, 20, 0] },
+    visible: { opacity: [0,0.2, 0.4, 0.8, 1], x: [80, 60, 40, -10, 0] },
   };
 
   const { ref, inView } = useInView({

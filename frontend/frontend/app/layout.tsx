@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={"overflow-x-clip p-0 m-0"}>
+      <body className={"overflow-clip w-screen p-0 m-0 bg-slate-200"}>
         <NavBar />
         {children}
         <Footer/>
