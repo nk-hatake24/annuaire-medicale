@@ -35,12 +35,12 @@ const createDoctor = async (req, res) => {
   
       const total = await Doctor.countDocuments(query); // Get total count of matching documents
       
-      res.json({
-        doctors,
-        total,
-        page: parseInt(page),
-        totalPages: Math.ceil(total / parseInt(limit)), // Calculate total pages
-      });
+      res.json(
+        doctors
+        // total,
+        // page: parseInt(page),
+        // totalPages: Math.ceil(total / parseInt(limit)), 
+      );
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
