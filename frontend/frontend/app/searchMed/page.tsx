@@ -63,7 +63,7 @@ export default function SearchMed() {
     }
   };
 
-  console.log(suggestions)
+
   const renderedSuggestions = useMemo(() => {
     return suggestions.map((suggestion) => (
       <li
