@@ -1,11 +1,13 @@
 "use client";
 
+import { DoctorCard } from "@/components/DoctorCard";
 import { fetchSuggestions } from "@/components/searchMedSuggeestion";
 import Spinner from "@/components/spinnner";
+import useDebounce from "@/components/useRebounce";
 import { apiFetch } from "@/lib/apiFetch";
 import { binarySearchSuggestions } from "@/lib/binarysearch";
-import { Doctor, SuggestionProps } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { AllDoctorsResponseProps, Doctor, DoctorTempProps, SuggestionProps } from "@/lib/utils";
+import { useEffect, useMemo, useState } from "react";
 import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
 import { FaHospital } from "react-icons/fa";
 import { FaLocationCrosshairs, FaMapLocation } from "react-icons/fa6";
@@ -18,7 +20,7 @@ export default function SearchMed() {
   const [nothing, setNothing] = useState<Boolean>(false);
   const [suggestionsDropdown, setSuggestionsDropdown] =
     useState<Boolean>(false);
-  const [suggestions, setSuggestions] = useState<SuggestionProps[]>();
+  const [suggestions, setSuggestions] = useState<SuggestionProps[]>([]);
   const [searchmed, setSearchingmed] = useState({
     username: "",
     speciality: "",
@@ -28,26 +30,48 @@ export default function SearchMed() {
   const [doctor, setDoctor] = useState<Doctor[]>([]);
 
   
-  useEffect(() => {
-    if (!searchmed.username.trim()) {
-      setSuggestions([]);
-      return;
+
+  useEffect(()=>{
+  
+      if (searchmed.username.trim().length < 2) {
+        setSuggestions([]);
+        return;
+      }
+      fetchSuggestions();
+  
+  
+  },[searchmed.username])
+  
+  
+  const fetchSuggestions = async () => {
+    try {
+      setLoadingQuery(true);
+
+      const urlQ = `/api/doctor/all?search=${searchmed.username}`;
+      const res = await apiFetch<AllDoctorsResponseProps>(urlQ);
+      const filteredNames = res.allDoctors;
+
+      if (JSON.stringify(filteredNames) !== JSON.stringify(suggestions)) {
+        setSuggestions(filteredNames);
+      }
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      setError(true);
+      setErrorMessage("Failed to fetch suggestions");
+    } finally {
+      setLoadingQuery(false);
     }
+  };
 
-
-    const suggestionData = fetchSuggestions(searchmed)
-  console.log(suggestionData)
-    
-    binarySearchSuggestions(suggestionData, searchmed.username, 10)
-    setLoadingQuery(true);
-
-    const debounce = setTimeout(() => {
-      // fetchSuggestions();
-    }, 50); // Délais pour le debouncing
-    
-    
-    return () => clearTimeout(debounce);
-  }, [searchmed.username]);
+  console.log(suggestions)
+  const renderedSuggestions = useMemo(() => {
+    return suggestions.map((suggestion) => (
+      <li
+      className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+      onClick={() => handlesSuggestionUsername(suggestion?.username)} 
+      key={suggestion?._id}>{suggestion.username}</li>
+    ));
+  }, [suggestions]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // Empêcher le rechargement de la page
@@ -104,7 +128,7 @@ export default function SearchMed() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSuggestionsDropdown(true);
+    name ==='username'? setSuggestionsDropdown(true): ''
     setSearchingmed({
       ...searchmed,
       [name]: value,
@@ -116,7 +140,7 @@ export default function SearchMed() {
       ...prevState, // Conserve les autres propriétés inchangées
       username: value, // Met à jour uniquement le username
     }));
-    setSuggestions(undefined);
+    setSuggestions([]);
   };
   return (
     <div className="min-h-screen overflow-hidden  sm:max-w-6xl mx-auto flex justify-center items-center ">
@@ -143,26 +167,13 @@ export default function SearchMed() {
                 placeholder="name"
                 className="p-2 w-full outline-blue-300 rounded "
               />
-              {loadingQuery && (
+              {loadingQuery && suggestionsDropdown && (
                 <p className="absolute top-full mt-1 text-gray-500 bg-white w-full">
-                  Chargement...
+                  ...
                 </p>
               )}
-              <ul
-                onClick={(e) => e.stopPropagation()}
-                className="absolute w-full bg-white border border-gray-300 rounded-lg max-h-40 overflow-y-auto mt-2 shadow-lg"
-              >
-                {suggestionsDropdown &&
-                  suggestions?.map((value, index) => (
-                    <li
-                      key={index}
-                      className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
-                      onClick={() => handlesSuggestionUsername(value?.username)}
-                    >
-                      {value.username}
-                    </li>
-                  ))}
-              </ul>
+              {/* {error && suggestionsDropdown && <p className="text-red-400">{errorMessage}</p>} */}
+              {suggestionsDropdown && <ul className="absolute bg-blue-50 w-full">{renderedSuggestions}</ul>}
             </div>
 
             <input
@@ -216,34 +227,9 @@ export default function SearchMed() {
               {errorMessage}
             </p>
           )}
-          {doctor.map((doc) => (
-            <div key={doc._id} className="gap-4">
-              <div className="bg-blue-800 sm:h-96 flex flex-col text-blue-50  justify-center p-4">
-                <h2 className="sm:text-3xl tracking-wide test-xl text-center font-semibold uppercase">
-                  {doc.username}
-                </h2>
-
-                <h2 className="sm:text-lg test-sm  text-blue-300 text-center font-semibold uppercase">
-                  {doc.speciality}
-                </h2>
-                <h2 className="sm:text-xl flex gap-4  items-center test-md text-start font-semibold pl-5 mt-10 uppercase">
-                  <FaPhone size={18} />
-                  {doc.phoneNumber}
-                </h2>
-                <h2 className="sm:text-xl flex gap-4 items-center test-md text-start font-semibold pl-5 ">
-                  <FaEnvelope size={18} />
-                  {doc.email}
-                </h2>
-                <h2 className="sm:text-xl flex gap-4 items-centertest-md text-start font-semibold pl-5 uppercase">
-                  <FaHospital size={20} />
-                  {doc.healthCenter}
-                </h2>
-                <h2 className="sm:text-xl flex gap-4 items-center test-md text-start font-semibold pl-5 uppercase">
-                  <FaLocationCrosshairs size={18} /> {doc.town}
-                </h2>
-                {/* Affichez d'autres informations ici si nécessaire */}
-              </div>
-            </div>
+          {doctor?.map((doc) => (
+            
+              <DoctorCard key={doc._id} doctor={doc} />
           ))}
         </div>
       </div>

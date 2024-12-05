@@ -1,6 +1,6 @@
 import { Suspense} from 'react'
 import MainContent from "./mainContent"
-import Spinner from '@/components/spinnner';
+import Spinner from '@/components/spinner';
 
 
 
