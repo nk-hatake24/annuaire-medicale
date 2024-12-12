@@ -112,7 +112,7 @@ export default function SearchMed() {
     });
   };
 
-  const handlesSuggestionUsername = (value) => {
+  const handlesSuggestionUsername = (value:any) => {
     setSearchingmed((prevState) => ({
       ...prevState, // Conserve les autres propriétés inchangées
       username: value, // Met à jour uniquement le username
