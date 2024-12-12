@@ -2,7 +2,7 @@
 
 import { DoctorCard } from "@/components/DoctorCard";
 import { fetchSuggestions } from "@/components/searchMedSuggeestion";
-import Spinner from "@/components/spinnner";
+import Spinner from "@/components/spinner";
 import useDebounce from "@/components/useRebounce";
 import { apiFetch } from "@/lib/apiFetch";
 import { fetchDoctors } from "@/lib/apiFetchForDoctot";
