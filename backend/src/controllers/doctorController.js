@@ -94,7 +94,7 @@ const createDoctor = async (req, res) => {
             .skip(skip)
             .limit(Number(limit));
 
-        res.status(200).json({ allDoctors });
+        res.status(200).json(allDoctors);
     } catch (error) {
         console.error('Error fetching doctors:', error);
         res.status(500).json({ message: 'Internal server error' });
