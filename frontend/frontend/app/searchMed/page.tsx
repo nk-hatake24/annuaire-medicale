@@ -48,8 +48,8 @@ export default function SearchMed() {
       setLoadingQuery(true);
 
       const urlQ = `/api/doctor/all?search=${searchmed.username}`;
-      const res = await apiFetch<AllDoctorsResponseProps>(urlQ);
-      const filteredNames = res.allDoctors;
+      const res = await apiFetch<SuggestionProps[]>(urlQ);
+      const filteredNames = res
 
       if (JSON.stringify(filteredNames) !== JSON.stringify(suggestions)) {
         setSuggestions(filteredNames);
@@ -66,11 +66,12 @@ export default function SearchMed() {
 
 
   const renderedSuggestions = useMemo(() => {
-    return suggestions.map((suggestion) => (
+    return suggestions?.map((suggestion) => (
       <li
         className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
         onClick={() => handlesSuggestionUsername(suggestion?.username)}
         key={suggestion?._id}
+        
       >
         {suggestion.username}
       </li>
