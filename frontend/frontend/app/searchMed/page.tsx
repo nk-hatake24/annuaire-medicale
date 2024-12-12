@@ -5,8 +5,14 @@ import { fetchSuggestions } from "@/components/searchMedSuggeestion";
 import Spinner from "@/components/spinnner";
 import useDebounce from "@/components/useRebounce";
 import { apiFetch } from "@/lib/apiFetch";
+import { fetchDoctors } from "@/lib/apiFetchForDoctot";
 import { binarySearchSuggestions } from "@/lib/binarysearch";
-import { AllDoctorsResponseProps, Doctor, DoctorTempProps, SuggestionProps } from "@/lib/utils";
+import {
+  AllDoctorsResponseProps,
+  Doctor,
+  DoctorTempProps,
+  SuggestionProps,
+} from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
 import { FaHospital } from "react-icons/fa";
@@ -21,7 +27,7 @@ export default function SearchMed() {
   const [suggestionsDropdown, setSuggestionsDropdown] =
     useState<Boolean>(false);
   const [suggestions, setSuggestions] = useState<SuggestionProps[]>([]);
-  const [searchmed, setSearchingmed] = useState({
+  const [searchmed, setSearchingmed] = useState<DoctorTempProps>({
     username: "",
     speciality: "",
     hospital: "",
@@ -29,20 +35,14 @@ export default function SearchMed() {
   });
   const [doctor, setDoctor] = useState<Doctor[]>([]);
 
-  
+  useEffect(() => {
+    if (searchmed.username.trim().length < 2) {
+      setSuggestions([]);
+      return;
+    }
+    fetchSuggestions();
+  }, [searchmed.username]);
 
-  useEffect(()=>{
-  
-      if (searchmed.username.trim().length < 2) {
-        setSuggestions([]);
-        return;
-      }
-      fetchSuggestions();
-  
-  
-  },[searchmed.username])
-  
-  
   const fetchSuggestions = async () => {
     try {
       setLoadingQuery(true);
@@ -64,71 +64,48 @@ export default function SearchMed() {
   };
 
 
+
   const renderedSuggestions = useMemo(() => {
     return suggestions.map((suggestion) => (
       <li
-      className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
-      onClick={() => handlesSuggestionUsername(suggestion?.username)} 
-      key={suggestion?._id}>{suggestion.username}</li>
+        className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+        onClick={() => handlesSuggestionUsername(suggestion?.username)}
+        key={suggestion?._id}
+      >
+        {suggestion.username}
+      </li>
     ));
   }, [suggestions]);
 
+
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // Empêcher le rechargement de la page
-
-    if (
-      !searchmed.username &&
-      !searchmed.speciality &&
-      !searchmed.hospital &&
-      !searchmed.town
-    ) {
-      setError(true); // Activer l'état d'erreur
-      setErrorMessage("Tous les champs sont obligatoires"); // Message d'erreur à afficher
-      return; // Empêche la soumission si les champs sont vides
-    }
-    setLoading(true);
-    setError(false);
-
     try {
-      const params = new URLSearchParams();
-      if (searchmed.username) params.append("username", searchmed.username);
-      if (searchmed.speciality)
-        params.append("speciality", searchmed.speciality);
-      if (searchmed.hospital) params.append("hospital", searchmed.hospital);
-      if (searchmed.town) params.append("town", searchmed.town);
-      const url = `/api/doctor/searched?${params.toString()}`;
-
-      const response = await apiFetch<Doctor[]>(url, {
-        headers: {
-          Authorization: "Bearer your-access-token", // Optional, depending on your auth setup
-        },
-      });
-
-      setDoctor(response); // Mettre à jour l'état avec les données du médecin
-      setLoading(false); // Désactiver l'état de chargement
-      if (doctor.length === 0) {
+      setLoading(true);
+    setError(false);
+      const fetchDoctorResponse = await fetchDoctors(searchmed);
+      setLoading(false);
+      if (fetchDoctorResponse) {
+        setDoctor(fetchDoctorResponse); // Assurez-vous que le type est correct
+      } else {
         setError(true);
         setErrorMessage("no doctor found");
         setNothing(true);
-      } else {
-        setNothing(false);
       }
-    } catch (err) {
-      setLoading(false); // Désactiver l'état de chargement en cas d'erreur
+    } catch(err) {
       const errorMessage =
-        err instanceof Error
-          ? err.message
-          : "Une erreur inconnue s'est produite";
-      setErrorMessage(errorMessage);
-
-      setError(true); // Définir une erreur
-      console.error(errorMessage); // Afficher l'erreur dans la console
+      err instanceof Error
+        ? err.message
+        : "Une erreur inconnue s'est produite";  
+  
+      setErrorMessage(errorMessage)
     }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    name ==='username'? setSuggestionsDropdown(true): ''
+    name === "username" ? setSuggestionsDropdown(true) : "";
     setSearchingmed({
       ...searchmed,
       [name]: value,
@@ -143,10 +120,13 @@ export default function SearchMed() {
     setSuggestions([]);
   };
   return (
-    <div className="min-h-screen overflow-hidden  sm:max-w-6xl mx-auto flex justify-center items-center ">
-      <div onClick={() => setSuggestionsDropdown(false)} className="flex transition-all flex-col sm:flex-row justify-center gap-2 overflow-clip sm:h-96 w-full ">
-        <div className="flex flex-col p-8 sm:w-1/2 bg-blue-600">
-          <h2 className="text-blue-50 text-2xl text-center mb-4">
+    <div className="min-h-screen   overflow-hidden  sm:max-w-6xl mx-auto flex justify-center items-center ">
+      <div
+        onClick={() => setSuggestionsDropdown(false)}
+        className="flex  transition-all flex-col sm:flex-row justify-center gap-2 overflow-clip sm:h-96 w-full "
+      >
+        <div className="flex flex-col text-slate-100 p-8 rounded-xl sm:w-1/2 bg-slate-950">
+          <h2 className=" text-2xl text-center mb-4">
             {" "}
             search a Doctor{" "}
           </h2>
@@ -154,9 +134,7 @@ export default function SearchMed() {
             onSubmit={handleSubmit}
             className="placeholder:text-gray-400 flex flex-col w-full gap-2"
           >
-            <div
-              className="relative w-full "
-            >
+            <div className="relative w-full ">
               <input
                 pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
                 title="Les caractères spéciaux ne sont pas autorisés."
@@ -165,15 +143,19 @@ export default function SearchMed() {
                 value={searchmed.username}
                 type="text"
                 placeholder="name"
-                className="p-2 w-full outline-blue-300 rounded "
+                className="p-2 w-full outline-slate-300 bg-slate-800 rounded "
               />
               {loadingQuery && suggestionsDropdown && (
-                <p className="absolute top-full mt-1 text-gray-500 bg-white w-full">
+                <p className="absolute top-full mt-1 bg-slate-500   w-full">
                   ...
                 </p>
               )}
               {/* {error && suggestionsDropdown && <p className="text-red-400">{errorMessage}</p>} */}
-              {suggestionsDropdown && <ul className="absolute bg-blue-50 w-full">{renderedSuggestions}</ul>}
+              {suggestionsDropdown && (
+                <ul className="absolute  bg-slate-500 text-slate-200 text-sm w-full">
+                  {renderedSuggestions}
+                </ul>
+              )}
             </div>
 
             <input
@@ -184,7 +166,7 @@ export default function SearchMed() {
               name="speciality"
               type="text"
               placeholder="speciality"
-              className="p-2 outline-blue-300 rounded "
+              className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
             <input
               pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
@@ -194,7 +176,7 @@ export default function SearchMed() {
               name="town"
               type="text"
               placeholder="town"
-              className="p-2 outline-blue-300 rounded "
+              className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
             <input
               pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
@@ -204,12 +186,12 @@ export default function SearchMed() {
               name="hospital"
               type="text"
               placeholder="hopital"
-              className="p-2 outline-blue-300 rounded "
+              className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
             <input
               value={"search"}
               type="submit"
-              className="p-1 outline-blue-300 rounded border mt-2 border-blue-50 text-blue-50 hover:bg-blue-800 "
+              className="p-1 outline-slate-300 rounded border mt-2 border-slate-50 text-slate-50 hover:bg-slate-800 "
             />
           </form>
         </div>
@@ -228,8 +210,7 @@ export default function SearchMed() {
             </p>
           )}
           {doctor?.map((doc) => (
-            
-              <DoctorCard key={doc._id} doctor={doc} />
+            <DoctorCard key={doc._id} doctor={doc} />
           ))}
         </div>
       </div>

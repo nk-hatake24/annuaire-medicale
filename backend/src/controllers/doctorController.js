@@ -83,7 +83,7 @@ const createDoctor = async (req, res) => {
 
 
   const getAllDoctorWithOutCursorBase = async (req, res) => {
-    const { search, page = 1, limit = 10 } = req.query;
+    const { search, page = 1, limit = 5 } = req.query;
     try {
         const skip = (page - 1) * limit;
 
