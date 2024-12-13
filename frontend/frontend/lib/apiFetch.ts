@@ -1,7 +1,8 @@
 import { FetchOptions } from "./utils";
 
 
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  // const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const BASE_URL ='https://annuaire-medicale.onrender.com'
   
   
   export async function apiFetch<T>(

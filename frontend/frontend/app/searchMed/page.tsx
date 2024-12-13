@@ -1,23 +1,19 @@
 "use client";
 
 import { DoctorCard } from "@/components/DoctorCard";
-import { fetchSuggestions } from "@/components/searchMedSuggeestion";
 import Spinner from "@/components/spinner";
 import useDebounce from "@/components/useRebounce";
 import { apiFetch } from "@/lib/apiFetch";
 import { fetchDoctors } from "@/lib/apiFetchForDoctot";
-import { binarySearchSuggestions } from "@/lib/binarysearch";
+
 import {
-  AllDoctorsResponseProps,
   Doctor,
   DoctorTempProps,
   SuggestionProps,
 } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useEffect, useMemo, useState } from "react";
-import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
-import { FaHospital } from "react-icons/fa";
-import { FaLocationCrosshairs, FaMapLocation } from "react-icons/fa6";
+
 
 export default function SearchMed() {
   const [loading, setLoading] = useState<Boolean>(false);
