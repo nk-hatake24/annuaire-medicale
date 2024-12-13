@@ -13,6 +13,7 @@ import {
   DoctorTempProps,
   SuggestionProps,
 } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 import { useEffect, useMemo, useState } from "react";
 import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
 import { FaHospital } from "react-icons/fa";
@@ -136,7 +137,7 @@ export default function SearchMed() {
             className="placeholder:text-gray-400 flex flex-col w-full gap-2"
           >
             <div className="relative w-full ">
-              <input
+              <Input
                 pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
                 title="Les caractères spéciaux ne sont pas autorisés."
                 onChange={handleInputChange}
@@ -159,7 +160,7 @@ export default function SearchMed() {
               )}
             </div>
 
-            <input
+            <Input
               pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
               title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
@@ -169,7 +170,7 @@ export default function SearchMed() {
               placeholder="speciality"
               className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
-            <input
+            <Input
               pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
               title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
@@ -179,7 +180,7 @@ export default function SearchMed() {
               placeholder="town"
               className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
-            <input
+            <Input
               pattern="^[a-zA-Z0-9 ]*$" // Interdiction des caractères spéciaux via pattern
               title="Les caractères spéciaux ne sont pas autorisés."
               onChange={handleInputChange}
@@ -189,7 +190,7 @@ export default function SearchMed() {
               placeholder="hopital"
               className="p-2 outline-slate-300 bg-slate-800 rounded "
             />
-            <input
+            <Input
               value={"search"}
               type="submit"
               className="p-1 outline-slate-300 rounded border mt-2 border-slate-50 text-slate-50 hover:bg-slate-800 "
