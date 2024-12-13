@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/navBar";
 import Footer from "./components/footer";
+import { Analytics } from "@vercel/analytics/react"
 
 
 export const metadata: Metadata = {
